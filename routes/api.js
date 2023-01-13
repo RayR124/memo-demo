@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path');
 
-var uuid = require('../public/helper/uuid');
+var helper = require('../public/helper/helper');
 
 module.exports = (app) => {
 
@@ -18,7 +18,7 @@ module.exports = (app) => {
       title: req.body.title,
       text: req.body.text,
 
-      id: uuid(),
+      id: helper(),
     };
 
     dB.push(Notes);
