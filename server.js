@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const notes = require("./db/db.json");
+const api = require("./api/notes");
 const path = require("path");
 const uuid = require("uuid");
 
@@ -10,6 +11,7 @@ const port = process.env.port || 3001;
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/api", api);
 
 require('./routes/api')(app);
 require('./routes/html')(app);
