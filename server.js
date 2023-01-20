@@ -1,7 +1,10 @@
 const express = require("express");
+const fs = require("fs");
+const notes = require("./db/db.json");
+const path = require("path");
+const uuid = require("uuid");
 
 const app = express();
-
 const port = process.env.port || 3001;
 
 app.use(express.static('public'));
@@ -11,6 +14,28 @@ app.use(express.json());
 require('./routes/api')(app);
 require('./routes/html')(app);
 
+app.use(express.json());
+
 app.listen(port, () => {
     console.log(`Server listening at localhost${port}`);
+});
+
+app.get("/api/notes", (req, res) => {
+    res.sendFile(path.join(__dirname, "/db/db.json"))
+});
+
+app.post("/api/notes", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
+    const newNote = req.body;
+    newNote.id = uuid.v4();
+    notes.push(newNote);
+    fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+    res.json(notes);
+});
+
+app.delete("/api/notes/:id", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
+    const deleteNote = notes.filter((rmvNote) => rmvNote.id !== req.params.id);
+    fs.writeFileSync("/db/db.json", JSON.stringify(deleteNote));
+    res.json(deleteNote);
 });
