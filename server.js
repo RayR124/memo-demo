@@ -38,10 +38,10 @@ app.delete("./api/notes/:id", (req, res) => {
     res.json(deleteNote);
 });
 
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "./public/helper/index.html"));
+app.get("/index", function (req, res) {
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "./public/helper/notes.html"));
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
