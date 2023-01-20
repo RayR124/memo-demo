@@ -18,30 +18,36 @@ app.listen(port, () => {
     console.log(`Server listening at localhost${port}`);
 });
 
+// //this should read the db.json file and return all saved notes as JSON
 app.get("./api/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "./db/db.json"))
+    fs.writeFileSync("./db/db.json", JSON.stringify(notes));
 });
 
+// this should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client
 app.post("./api/notes", (req, res) => {
-    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
+    const note = JSON.parse(fs.readFileSync("./db/db.json"));
     const newNote = req.body;
     newNote.id = uuid.v4();
     notes.push(newNote);
-    fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+    fs.writeFileSync("./db/db.json", JSON.stringify(note));
     res.json(notes);
 });
 
+// this should remove the note with the given id property, and then rewrite the notes to the db.json file
 app.delete("./api/notes/:id", (req, res) => {
-    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
-    const deleteNote = notes.filter((rmvNote) => rmvNote.id !== req.params.id);
+    const note = JSON.parse(fs.readFileSync("./db/db.json"));
+    const deleteNote = note.filter((rmvNote) => rmvNote.id !== req.params.id);
     fs.writeFileSync("./db/db.json", JSON.stringify(deleteNote));
     res.json(deleteNote);
 });
 
-app.get("/index", function (req, res) {
+// this should return the index.html file.
+app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
+// this should return the notes.html file.
 app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
