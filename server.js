@@ -1,9 +1,9 @@
 const express = require("express");
 const fs = require("fs");
 const notes = require("./db/db.json");
-const api = require("./api/notes");
+//const api = require("./api/notes");
 const path = require("path");
-const uuid = require("uuid");
+//const uuid = require("uuid");
 
 const app = express();
 const port = process.env.port || 3001;
@@ -11,7 +11,7 @@ const port = process.env.port || 3001;
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/api", api);
+//app.use("/api", api);
 
 require('./routes/api')(app);
 require('./routes/html')(app);
@@ -33,7 +33,7 @@ app.post("./api/notes", (req, res) => {
     newNote.id = uuid.v4();
     notes.push(newNote);
     fs.writeFileSync("./db/db.json", JSON.stringify(note));
-    res.json(notes);
+    res.json(note);
 });
 
 // this should remove the note with the given id property, and then rewrite the notes to the db.json file
