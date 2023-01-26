@@ -2,7 +2,6 @@ const express = require("express");
 const fs = require("fs");
 const notes = require("./db/db.json");
 const path = require("path");
-const path = require('path');
 const api = require("./routes/api");
 const html = require("./routes/html");
 //const util =  require("util");
