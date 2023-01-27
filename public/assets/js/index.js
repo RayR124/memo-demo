@@ -26,7 +26,7 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
-  fetch('api/notes', {
+  fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,6 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
-  console.log("something");
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
