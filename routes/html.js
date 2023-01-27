@@ -6,7 +6,7 @@ module.exports = (memo) => {
     res.sendFile(path.join(__dirname, '../public/notes.html'));
   });
 // this should return the index.html file.
-  memo.get('*', (req, res) => {
+  memo.get('', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   })
 };
