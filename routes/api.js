@@ -27,13 +27,3 @@ module.exports = (app) => {
     res.json(deleteNote);
   })
 };
-
-/*app.post("api/notes", (req, res) => {
-  const db = fs.readFileSync("./db/db.json");
-  const note = JSON.parse(db);
-  res.json(note);
-  const newNote = req.body;
-  note.push(newNote);
-  fs.writeFileSync("./db/db.json", JSON.stringify(newNote));
-  res.json(db);
-});*/
