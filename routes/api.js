@@ -1,8 +1,6 @@
 const fs = require('fs')
 const path = require('path');
 
-var helper = require('../public/helper/helper');
-
 module.exports = (app) => {
 
   app.get('/api/notes', (req, res) => {
